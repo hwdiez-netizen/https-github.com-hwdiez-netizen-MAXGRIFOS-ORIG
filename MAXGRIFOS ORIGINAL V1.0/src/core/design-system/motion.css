@@ -1,0 +1,30 @@
+/* motion.css */
+@import "./design-tokens.css";
+
+:root {
+  --mg-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --mg-dur-fast: 150ms;
+  --mg-dur-normal: 300ms;
+}
+
+.mg-transition {
+  transition: all var(--mg-dur-normal) var(--mg-ease-in-out);
+}
+
+.mg-fade-in {
+  animation: mg-fade-in var(--mg-dur-normal) var(--mg-ease-in-out);
+}
+
+@keyframes mg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

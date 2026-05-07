@@ -1,0 +1,47 @@
+/* neon-flex.css */
+@import "./design-tokens.css";
+@import "./typography.css";
+@import "./buttons.css";
+@import "./cards.css";
+@import "./forms.css";
+@import "./badges.css";
+@import "./toasts.css";
+@import "./kpi.css";
+@import "./heatmaps.css";
+@import "./states.css";
+@import "./accessibility.css";
+@import "./motion.css";
+
+/* Global overrides & layout */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--mg-bg);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: var(--mg-primary);
+  height: var(--mg-header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--mg-spacing-md);
+  color: var(--mg-text-on-primary);
+  box-shadow: var(--mg-shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: var(--mg-z-header);
+}
+
+main {
+  padding-bottom: var(--mg-nav-height);
+}
+
+.p-4 { padding: var(--mg-spacing-md); }
+.mt-2 { margin-top: var(--mg-spacing-sm); }
+.mt-4 { margin-top: var(--mg-spacing-md); }
+.mb-4 { margin-bottom: var(--mg-spacing-md); }

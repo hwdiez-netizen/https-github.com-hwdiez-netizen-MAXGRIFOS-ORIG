@@ -1,0 +1,19 @@
+/* heatmaps.css */
+@import "./design-tokens.css";
+
+.mg-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+  gap: 2px;
+}
+
+.mg-heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--mg-gray-100);
+}
+
+.mg-heatmap-q1 { background: #E0F2FE; }
+.mg-heatmap-q2 { background: #7DD3FC; }
+.mg-heatmap-q3 { background: #0EA5E9; }
+.mg-heatmap-q4 { background: #0369A1; }

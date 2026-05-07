@@ -1,0 +1,230 @@
+/* app-shell.css */
+@import "../design-system/design-tokens.css";
+
+.mg-app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--mg-bg);
+  font-family: var(--mg-font-sans);
+  overflow-x: hidden;
+}
+
+.mg-header {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: var(--mg-text);
+  height: 64px;
+  padding: 0 var(--mg-spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: var(--mg-z-header);
+  position: sticky;
+  top: 0;
+}
+
+.mg-header-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mg-logo {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
+  color: var(--mg-text);
+  line-height: 1;
+}
+
+.mg-header-left::after {
+  content: "Integrated System";
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--mg-text-muted);
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.mg-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.mg-status-online {
+  background-color: var(--mg-success);
+  box-shadow: 0 0 6px var(--mg-success);
+}
+
+.mg-status-offline {
+  background-color: var(--mg-warning);
+}
+
+.mg-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--mg-spacing-md);
+}
+
+.mg-badge-demo {
+  background: #F2F2F7;
+  color: #8E8E93;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mg-main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: calc(var(--mg-nav-height) + var(--mg-spacing-xl));
+}
+
+.mg-nav-bottom {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: var(--mg-z-header);
+  padding-bottom: env(safe-area-inset-bottom);
+  height: 72px;
+}
+
+.mg-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--mg-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex: 1;
+  padding-top: 8px;
+}
+
+.mg-nav-item i {
+  font-size: 20px;
+  font-style: normal;
+  margin-bottom: 2px;
+}
+
+.mg-nav-item span {
+  opacity: 0.6;
+}
+
+.mg-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mg-nav-item.active {
+  color: var(--mg-primary);
+}
+
+.mg-nav-item.active span {
+  opacity: 1;
+}
+
+/* NIS Toast — F5 Hardening */
+.mg-nis-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(16px);
+  z-index: 9999;
+  max-width: min(340px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: rgba(31, 31, 35, 0.92);
+  color: #FFD166;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.mg-nis-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mg-app-shell,
+.mg-main-content {
+  overscroll-behavior: contain;
+}
+
+.mg-main-content {
+  touch-action: pan-y;
+}
+
+.mg-nav-bottom,
+.mg-module-card {
+  touch-action: manipulation;
+}
+
+@media (min-width: 431px) {
+  .mg-phone-preview-mode .mg-nis-toast,
+  .mg-device-frame .mg-nis-toast,
+  .mg-smartphone-shell .mg-nis-toast {
+    position: absolute;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-nis-toast {
+    transition: none;
+  }
+}
+
+/* Smartphone emulation for desktop preview */
+@media (min-width: 480px) {
+  body {
+    background-color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .mg-smartphone-shell {
+    position: relative;
+    width: 375px;
+    height: 667px; /* 9:16 aspect ratio exactly */
+    min-height: auto; /* override 100vh from app-shell */
+    max-height: 95vh;
+    border-radius: 36px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 10px #1e293b, 0 0 0 12px #334155;
+    overflow: hidden;
+    background: #FAFAFA;
+    transform: translateZ(0); /* CRITICAL: Creates containing block for fixed children inside */
+  }
+
+  .mg-app-shell {
+    min-height: 100%;
+  }
+}

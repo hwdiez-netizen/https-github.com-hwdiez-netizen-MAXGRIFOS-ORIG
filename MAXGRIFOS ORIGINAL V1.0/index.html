@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0D47D9">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MaxGrifos">
+  <meta name="description" content="MaxGrifos ERP-CRM-WMS Integred">
+  <title>MaxGrifos ERP</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- flags externo: CSP 'self' compliant -->
+  <script src="/maxgrifos-flags.js"></script>
+  <script src="/kardex-vnext-overlay.js"></script>
+  <script>
+    (function ensureRandomUUID() {
+      if (typeof globalThis.crypto === 'undefined') {
+        globalThis.crypto = {};
+      }
+      if (typeof globalThis.crypto.randomUUID === 'function') return;
+
+      const hex = [];
+      for (let i = 0; i < 256; i += 1) hex.push((i + 0x100).toString(16).slice(1));
+
+      globalThis.crypto.randomUUID = function randomUUID() {
+        const bytes = new Uint8Array(16);
+        if (typeof globalThis.crypto.getRandomValues === 'function') {
+          globalThis.crypto.getRandomValues(bytes);
+        } else {
+          for (let i = 0; i < 16; i += 1) bytes[i] = Math.floor(Math.random() * 256);
+        }
+
+        bytes[6] = (bytes[6] & 0x0f) | 0x40;
+        bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+        return (
+          hex[bytes[0]] + hex[bytes[1]] + hex[bytes[2]] + hex[bytes[3]] + '-' +
+          hex[bytes[4]] + hex[bytes[5]] + '-' +
+          hex[bytes[6]] + hex[bytes[7]] + '-' +
+          hex[bytes[8]] + hex[bytes[9]] + '-' +
+          hex[bytes[10]] + hex[bytes[11]] + hex[bytes[12]] + hex[bytes[13]] + hex[bytes[14]] + hex[bytes[15]]
+        );
+      };
+    }());
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

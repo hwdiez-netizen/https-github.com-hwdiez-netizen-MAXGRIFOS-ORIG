@@ -1,0 +1,72 @@
+/* design-tokens.css */
+:root {
+  /* Colors - Neon Flex Minimalist */
+  --mg-bg: #FFFFFF;
+  --mg-surface: #F9FAFB;
+  --mg-surface-elevated: #FFFFFF;
+  
+  --mg-primary: #0066FF; /* Electric Blue */
+  --mg-primary-neon: #00FFFF; /* Cyan Neon */
+  --mg-cyan: #00FFFF;
+  
+  /* Feedback Colors */
+  --mg-success: #10B981;
+  --mg-warning: #F59E0B;
+  --mg-danger: #EF4444;
+  
+  /* Text Colors */
+  --mg-text: #111827;
+  --mg-text-muted: #6B7280;
+  --mg-text-on-primary: #FFFFFF;
+  
+  /* Borders & UI Elements */
+  --mg-border: #E5E7EB;
+  --mg-focus-ring: rgba(0, 102, 255, 0.4);
+  
+  /* Typography */
+  --mg-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mg-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  /* Spacing */
+  --mg-spacing-xs: 4px;
+  --mg-spacing-sm: 8px;
+  --mg-spacing-md: 16px;
+  --mg-spacing-lg: 24px;
+  --mg-spacing-xl: 32px;
+  
+  /* Sizing */
+  --mg-touch-min: 44px;
+  --mg-header-height: 60px;
+  --mg-nav-height: 70px;
+  
+  /* Borders */
+  --mg-radius-sm: 10px;
+  --mg-radius-md: 14px;
+  --mg-radius-lg: 20px;
+  --mg-radius-xl: 28px;
+  --mg-radius-full: 9999px;
+  
+  /* Shadows - Apple-inspired subtle depth */
+  --mg-shadow-sm: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+  --mg-shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --mg-shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+  --mg-shadow-premium: 0 30px 60px rgba(0,0,0,0.12);
+  
+  /* Glows */
+  --mg-glow-primary: 0 0 15px rgba(0, 102, 255, 0.3);
+  --mg-glow-cyan: 0 0 15px rgba(0, 255, 255, 0.4);
+  
+  /* Z-index hierarchy */
+  --mg-z-base: 0;
+  --mg-z-header: 100;
+  --mg-z-overlay: 200;
+  --mg-z-modal: 300;
+  --mg-z-toast: 400;
+  
+  /* Sync status colors */
+  --mg-status-online: var(--mg-success);
+  --mg-status-offline: var(--mg-warning);
+  --mg-status-syncing: var(--mg-cyan);
+  --mg-status-pending: var(--mg-warning);
+  --mg-status-failed: var(--mg-danger);
+}

@@ -1,0 +1,19 @@
+/* badges.css */
+@import "./design-tokens.css";
+
+.mg-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--mg-radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mg-badge-success { background: #DCFCE7; color: #166534; }
+.mg-badge-warning { background: #FEF3C7; color: #92400E; }
+.mg-badge-danger  { background: #FEE2E2; color: #991B1B; }
+.mg-badge-info    { background: #DBEAFE; color: #1E40AF; }
+.mg-badge-neon    { background: var(--mg-bg); border: 1px solid var(--mg-cyan); color: var(--mg-primary); box-shadow: var(--mg-glow-cyan); }

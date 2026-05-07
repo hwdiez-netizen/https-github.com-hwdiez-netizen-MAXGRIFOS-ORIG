@@ -1,0 +1,34 @@
+/* kpi.css */
+@import "./design-tokens.css";
+
+.mg-kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mg-spacing-xs);
+  padding: var(--mg-spacing-md);
+  background: var(--mg-white);
+  border-radius: var(--mg-radius-lg);
+  border: 1px solid var(--mg-border);
+}
+
+.mg-kpi-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--mg-text-muted);
+  text-transform: uppercase;
+}
+
+.mg-kpi-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--mg-text);
+  font-family: var(--mg-font-mono);
+}
+
+.mg-kpi-trend {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.mg-kpi-trend-up { color: var(--mg-success); }
+.mg-kpi-trend-down { color: var(--mg-danger); }

@@ -1,0 +1,75 @@
+/**
+ * Module Entry Pilot Styles
+ */
+
+.mg-pilot-view {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mg-pilot-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.mg-pilot-header p {
+  font-size: 14px;
+  color: #8E9299;
+}
+
+.mg-pilot-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(0, 243, 255, 0.1);
+  color: #00F3FF;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.mg-pilot-card {
+  background: #1C1C1E;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mg-pilot-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.mg-pilot-card p {
+  font-size: 13px;
+  color: #8E9299;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.mg-pilot-logs {
+  background: #000000;
+  border-radius: 12px;
+  padding: 16px;
+  height: 200px;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mg-log-entry {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mg-log-entry.meta { color: #8E9299; }
+.mg-log-entry.success { color: #00FF9D; }
+.mg-log-entry.error { color: #FF4D4D; }

@@ -1,0 +1,28 @@
+/* typography.css */
+@import "./design-tokens.css";
+
+body {
+  font-family: var(--mg-font-sans);
+  color: var(--mg-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin: 0;
+  color: var(--mg-text);
+}
+
+.mg-text-muted {
+  color: var(--mg-text-muted);
+}
+
+.mg-text-mono {
+  font-family: var(--mg-font-mono);
+}
+
+.mg-header-title {
+  font-size: 1.25rem;
+  letter-spacing: -0.025em;
+}

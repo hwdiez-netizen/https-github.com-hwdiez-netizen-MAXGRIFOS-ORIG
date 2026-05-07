@@ -1,0 +1,47 @@
+/* forms.css */
+@import "./design-tokens.css";
+
+.mg-form-group {
+  margin-bottom: var(--mg-spacing-md);
+}
+
+.mg-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: var(--mg-spacing-xs);
+  color: var(--mg-text-muted);
+}
+
+.mg-input, .mg-select {
+  width: 100%;
+  height: var(--mg-touch-min);
+  padding: 0 var(--mg-spacing-sm);
+  border: 1px solid var(--mg-border);
+  border-radius: var(--mg-radius-md);
+  font-family: var(--mg-font-sans);
+  font-size: 1rem;
+  background-color: var(--mg-bg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mg-input:focus, .mg-select:focus {
+  outline: none;
+  border-color: var(--mg-primary);
+  box-shadow: 0 0 0 3px var(--mg-focus-ring);
+}
+
+.mg-input::placeholder {
+  color: var(--mg-text-muted);
+  opacity: 0.5;
+}
+
+.mg-input-error {
+  border-color: var(--mg-danger);
+}
+
+.mg-error-text {
+  font-size: 0.75rem;
+  color: var(--mg-danger);
+  margin-top: var(--mg-spacing-xs);
+}

@@ -1,0 +1,29 @@
+/* accessibility.css */
+@import "./design-tokens.css";
+
+/* Focus visibility for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--mg-primary);
+  outline-offset: 2px;
+}
+
+/* Hide elements visually but keep for screen readers */
+.mg-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* High contrast preference */
+@media (prefers-contrast: more) {
+  :root {
+    --mg-text-muted: #374151;
+    --mg-border: #9CA3AF;
+  }
+}

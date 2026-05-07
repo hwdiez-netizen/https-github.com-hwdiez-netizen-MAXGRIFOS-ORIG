@@ -1,0 +1,32 @@
+/* cards.css */
+@import "./design-tokens.css";
+
+.mg-card {
+  background: var(--mg-surface-elevated);
+  border-radius: var(--mg-radius-lg);
+  border: 1px solid var(--mg-border);
+  padding: var(--mg-spacing-md);
+  box-shadow: var(--mg-shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.mg-card-interactive {
+  cursor: pointer;
+}
+
+.mg-card-interactive:hover {
+  box-shadow: var(--mg-shadow-md), var(--mg-glow-primary);
+  transform: translateY(-2px);
+}
+
+.mg-card-header {
+  margin-bottom: var(--mg-spacing-md);
+  padding-bottom: var(--mg-spacing-sm);
+  border-bottom: 1px solid var(--mg-border);
+}
+
+.mg-card-footer {
+  margin-top: var(--mg-spacing-md);
+  padding-top: var(--mg-spacing-sm);
+  border-top: 1px solid var(--mg-border);
+}

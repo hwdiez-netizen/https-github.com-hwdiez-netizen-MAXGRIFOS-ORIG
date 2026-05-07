@@ -1,0 +1,35 @@
+{
+  "name": "maxgrifos-erp",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/set-build-id.mjs",
+    "build": "vite build",
+    "postbuild": "node scripts/postbuild-copy.mjs",
+    "preview": "vite preview",
+    "test:core": "node scripts/run-core-tests.mjs",
+    "test:smoke": "node scripts/run-smoke-tests.mjs",
+    "test:seed": "node scripts/validate-seed-data.mjs",
+    "test:nis": "node scripts/validate-nis-global.mjs",
+    "test:module-entry": "node scripts/validate-module-entry.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:smoke": "playwright test tests/smoke --project=chromium"
+  },
+  "dependencies": {
+    "idb": "^8.0.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "vite": "^5.4.14",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}

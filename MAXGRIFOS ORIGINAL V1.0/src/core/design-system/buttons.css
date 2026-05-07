@@ -1,0 +1,76 @@
+/* buttons.css */
+@import "./design-tokens.css";
+
+.mg-btn {
+  height: var(--mg-touch-min);
+  min-width: var(--mg-touch-min);
+  padding: 0 var(--mg-spacing-md);
+  border-radius: var(--mg-radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.1s var(--mg-ease-in-out), background 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-size: 0.875rem;
+  gap: var(--mg-spacing-sm);
+}
+
+.mg-btn:active {
+  transform: scale(0.98);
+}
+
+.mg-btn:focus-visible {
+  outline: 2px solid var(--mg-focus-ring);
+  outline-offset: 2px;
+}
+
+.mg-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.mg-btn-primary {
+  background-color: var(--mg-primary);
+  color: var(--mg-text-on-primary);
+}
+
+.mg-btn-primary:hover {
+  background-color: #005ce6;
+  box-shadow: var(--mg-glow-primary);
+}
+
+.mg-btn-secondary {
+  background-color: var(--mg-surface);
+  border-color: var(--mg-border);
+  color: var(--mg-text);
+}
+
+.mg-btn-secondary:hover {
+  background-color: var(--mg-border);
+}
+
+.mg-btn-neon {
+  background-color: var(--mg-bg);
+  border-color: var(--mg-cyan);
+  color: var(--mg-primary);
+  box-shadow: var(--mg-glow-cyan);
+}
+
+.mg-btn-danger {
+  background-color: var(--mg-danger);
+  color: var(--mg-text-on-primary);
+}
+
+.mg-btn-ghost {
+  background: transparent;
+  color: var(--mg-text-muted);
+}
+
+.mg-btn-ghost:hover {
+  background: var(--mg-surface);
+  color: var(--mg-text);
+}

@@ -1,0 +1,9 @@
+{
+  "name": "maxgrifos-root",
+  "private": true,
+  "scripts": {
+    "dev": "cd \"MAXGRIFOS ORIGINAL V1.0\" && npm install --include=dev && npm run dev -- --port 3000 --host 0.0.0.0",
+    "build": "cd \"MAXGRIFOS ORIGINAL V1.0\" && npm install --include=dev && npm run build",
+    "start": "cd \"MAXGRIFOS ORIGINAL V1.0\" && npm run preview -- --port 3000 --host 0.0.0.0"
+  }
+}
