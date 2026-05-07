@@ -24,7 +24,7 @@ export class ProductDetail {
     const costStr = formatCost(p.costo);
 
     this.container.innerHTML = `
-      <div class="form-container">
+      <div class="form-container mg-premium-flow module-productos">
         <button type="button" class="btn-back" id="btn-back-det">← Volver</button>
         <div class="form-mode-badge form-mode-v5">📷 Producto encontrado por escaneo</div>
         <h2>Producto Encontrado</h2>

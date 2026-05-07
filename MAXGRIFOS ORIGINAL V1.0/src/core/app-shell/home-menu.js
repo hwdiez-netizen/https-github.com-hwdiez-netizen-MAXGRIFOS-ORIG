@@ -55,8 +55,8 @@ export const homeMenu = {
       <!-- KPIs Compactos -->
       <div class="mg-kpi-compact">
         <div class="mg-kpi-item">
-          <div class="mg-kpi-icon" style="color: #3b82f6;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <div class="mg-kpi-icon" style="color: #3B82F6;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
           </div>
           <div class="mg-kpi-text">
             <span class="mg-kpi-val">33</span>
@@ -64,8 +64,8 @@ export const homeMenu = {
           </div>
         </div>
         <div class="mg-kpi-item">
-          <div class="mg-kpi-icon" style="color: #10b981;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <div class="mg-kpi-icon" style="color: #10B981;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </div>
           <div class="mg-kpi-text">
             <span class="mg-kpi-val">6</span>
@@ -73,8 +73,8 @@ export const homeMenu = {
           </div>
         </div>
         <div class="mg-kpi-item">
-          <div class="mg-kpi-icon" style="color: #f59e0b;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <div class="mg-kpi-icon" style="color: #F59E0B;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
           </div>
           <div class="mg-kpi-text">
             <span class="mg-kpi-val">2</span>
@@ -82,8 +82,8 @@ export const homeMenu = {
           </div>
         </div>
         <div class="mg-kpi-item mg-kpi-alert">
-          <div class="mg-kpi-icon" style="color: #8b5cf6;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <div class="mg-kpi-icon" style="color: #EF4444;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
           </div>
           <div class="mg-kpi-text">
             <span class="mg-kpi-val">3</span>
@@ -100,16 +100,16 @@ export const homeMenu = {
         </div>
         
         <div class="mg-premium-grid">
-          ${this.createCard('Cartera', 'Gestión de cartera y cuentas por cobrar', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>', '/cartera', '#60a5fa', '#3b82f6')}
-          ${this.createCard('Egresos', 'Control de gastos y desembolsos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>', '/egresos', '#fb7185', '#ef4444')}
-          ${this.createCard('Tesorería', 'Flujo de caja y movimientos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="18" height="8" rx="1"></rect><path d="M3 12V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v4"></path><line x1="8" y1="12" x2="8" y2="20"></line><line x1="16" y1="12" x2="16" y2="20"></line><line x1="12" y1="12" x2="12" y2="20"></line></svg>', '/tesoreria', '#2dd4bf', '#0ea5e9')}
-          ${this.createCard('Clientes', 'Administración de clientes y contactos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', '/clientes', '#4ade80', '#22c55e')}
-          ${this.createCard('Ventas', 'Órdenes, facturación y procesos de venta', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>', '/ventas', '#a78bfa', '#8b5cf6')}
-          ${this.createCard('Precios', 'Listas de precios y políticas comerciales', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>', '/precios', '#fbbf24', '#f59e0b')}
-          ${this.createCard('Proveedores', 'Gestión de proveedores y abastecimiento', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>', '/proveedores', '#fcd34d', '#f59e0b')}
-          ${this.createCard('Kardex', 'Movimientos y control de inventario', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>', '/kardex', '#2dd4bf', '#0f766e')}
-          ${this.createCard('Pedidos', 'Órdenes de clientes en tránsito', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>', '/pedidos', '#818cf8', '#4f46e5')}
-          ${this.createCard('Garantías', 'Cobertura y soporte técnico', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>', '/garantias', '#a3e635', '#65a30d')}
+          ${this.createCard('Cartera', 'Gestión de cartera y cuentas por cobrar', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>', '/cartera', '#3B82F6', '#2563EB')}
+          ${this.createCard('Egresos', 'Control de gastos y desembolsos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>', '/egresos', '#EF4444', '#DC2626')}
+          ${this.createCard('Tesorería', 'Flujo de caja y movimientos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="18" height="8" rx="1"></rect><path d="M3 12V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v4"></path><line x1="8" y1="12" x2="8" y2="20"></line><line x1="16" y1="12" x2="16" y2="20"></line><line x1="12" y1="12" x2="12" y2="20"></line></svg>', '/tesoreria', '#06B6D4', '#0891B2')}
+          ${this.createCard('Clientes', 'Administración de clientes y contactos', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', '/clientes', '#10B981', '#059669')}
+          ${this.createCard('Ventas', 'Órdenes, facturación y procesos de venta', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>', '/ventas', '#8B5CF6', '#7C3AED')}
+          ${this.createCard('Precios', 'Listas de precios y políticas comerciales', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>', '/precios', '#F97316', '#EA580C')}
+          ${this.createCard('Proveedores', 'Gestión de proveedores y abastecimiento', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>', '/proveedores', '#F59E0B', '#D97706')}
+          ${this.createCard('Kardex', 'Movimientos y control de inventario', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>', '/kardex', '#14B8A6', '#0D9488')}
+          ${this.createCard('Pedidos', 'Órdenes de clientes en tránsito', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>', '/pedidos', '#6366F1', '#4F46E5')}
+          ${this.createCard('Garantías', 'Cobertura y soporte técnico', '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>', '/garantias', '#84CC16', '#65A30D')}
         </div>
       </div>
       
@@ -179,11 +179,11 @@ export const homeMenu = {
     return container;
   },
 
-  createCard(title, desc, emoji, route, c1, c2) {
+  createCard(title, desc, iconSvg, route, c1, c2) {
     return `
       <div class="mg-card-premium" data-route="${route}">
-        <div class="mg-card-icon-wrap" style="background: linear-gradient(135deg, ${c1}, ${c2})">
-          ${emoji}
+        <div class="mg-card-icon-wrap" style="background: linear-gradient(135deg, ${c1}, ${c2}); color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          ${iconSvg}
         </div>
         <div class="mg-card-info">
           <h4 class="mg-card-title">${title}</h4>

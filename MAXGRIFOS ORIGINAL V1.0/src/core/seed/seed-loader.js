@@ -22,6 +22,7 @@ export class SeedLoader {
     console.debug('[SeedLoader] Loading deterministic seed data into memory...');
     
     // REGLAS ESTRICTAS DE SEGURIDAD (SMARTPHONE LAN PREPARE):
+    // 0. POLÍTICA DE VALIDACIÓN: Toda iteración de validación debe entregar data demo automática suficiente para validar el módulo afectado.
     // 1. NUNCA llamar a clearTestData().
     // 2. NUNCA limpiar IndexedDB.
     // 3. NUNCA borrar el outbox (sync_queue).

@@ -83,7 +83,7 @@ export class ClienteList {
     const list = this._filtered();
 
     this.container.innerHTML = `
-      <div class="list-container">
+      <div class="list-container mg-premium-flow module-clientes">
         <div class="list-header">
           <h2>Clientes</h2>
           <span class="product-count">${total} activos · ${inactivo} inactivos</span>

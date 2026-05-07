@@ -92,7 +92,7 @@ export class ClienteDetail {
     const pagoLabel = (PAGO_LABELS[pagoKey] ?? pagoKey) || 'SIN DEFINIR';
 
     this.container.innerHTML = `
-      <div class="list-container">
+      <div class="list-container mg-premium-flow module-clientes">
         <button type="button" class="btn-back" id="btn-back">← Volver</button>
 
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px">

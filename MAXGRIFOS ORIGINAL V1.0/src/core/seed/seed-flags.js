@@ -4,6 +4,13 @@
 
 const isSmartphoneSeedEnabled = () => {
   if (typeof window === 'undefined') return false;
+
+  try {
+    if (window.location.hostname === 'https-github-com-hwdiez-netizen-max.vercel.app') {
+      return true;
+    }
+  } catch(e) {}
+  
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get('seed') === 'smartphone' || params.get('preload') === 'smartphone') {

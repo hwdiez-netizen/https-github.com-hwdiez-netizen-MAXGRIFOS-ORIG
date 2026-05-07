@@ -97,7 +97,7 @@ export class ProductForm {
         : '';
 
     return `
-      <div class="form-container mg-mobile-form-safe">
+      <div class="form-container mg-mobile-form-safe mg-premium-flow module-productos">
         <button type="button" class="btn-back" id="btn-back">← Volver</button>
         <h2>${isEdit ? 'Editar Producto' : 'Nuevo Producto'}</h2>
         ${modeBadge}

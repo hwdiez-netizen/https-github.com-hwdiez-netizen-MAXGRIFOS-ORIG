@@ -37,7 +37,7 @@ export class ProductList {
   async mount() {
     applyProductsNisPhase1Overlay(this.container);
     this.container.innerHTML = `
-      <div class="list-container">
+      <div class="list-container mg-premium-flow module-productos">
         <div class="list-header">
           <h2>Productos</h2>
           <span class="product-count" id="pcount"></span>

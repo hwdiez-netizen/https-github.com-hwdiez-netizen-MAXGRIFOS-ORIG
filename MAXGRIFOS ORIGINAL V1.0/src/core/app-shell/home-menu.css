@@ -37,7 +37,9 @@ body:has(.mg-premium-home) {
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
-  padding-bottom: 90px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .mg-premium-home *,
@@ -51,10 +53,11 @@ body:has(.mg-premium-home) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 2.5rem) 1.5rem 1rem 1.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 2rem) 1.25rem 1rem 1.25rem;
   background-color: transparent;
   width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .mg-logo-wrap {
@@ -120,16 +123,17 @@ body:has(.mg-premium-home) {
 
 /* ---- HERO SOFT PREMIUM ---- */
 .mg-hero-premium {
-  margin: 0 1.5rem;
+  margin: 0 1.25rem;
   background: linear-gradient(135deg, #f0f7ff, #e0eaff);
   border-radius: 1.25rem;
-  padding: 1.5rem;
+  padding: 1.25rem;
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08); /* slight blue shadow */
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .mg-hero-content {
@@ -175,31 +179,33 @@ body:has(.mg-premium-home) {
 
 /* ---- KPIs COMPACTOS ---- */
 .mg-kpi-compact {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.5rem;
-  margin: 1.5rem 1.5rem 0 1.5rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  margin: 1.25rem 1.25rem 0 1.25rem;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .mg-kpi-item {
-  flex: 1;
-  min-width: 120px;
   background: white;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.25rem;
   border-radius: 0.75rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-  border: 1px solid #f1f5f9;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
 .mg-kpi-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  margin-bottom: 2px;
 }
 
 .mg-kpi-text {
@@ -208,7 +214,7 @@ body:has(.mg-premium-home) {
 }
 
 .mg-kpi-val {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #1e293b;
   line-height: 1;
@@ -216,18 +222,23 @@ body:has(.mg-premium-home) {
 }
 
 .mg-kpi-lbl {
-  font-size: 0.55rem;
-  font-weight: 600;
-  color: #94a3b8;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #64748b;
   text-transform: uppercase;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* ---- SECTION MODULES ---- */
 .mg-modules-section {
-  padding: 2rem 1.5rem 1rem 1.5rem;
+  padding: 1.5rem 1.25rem 1rem 1.25rem;
   width: 100%;
   box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
 }
 
 .mg-section-title {
@@ -235,13 +246,19 @@ body:has(.mg-premium-home) {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .mg-section-title h3 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 8px;
 }
 
 .mg-btn-ver-todos {
@@ -260,28 +277,35 @@ body:has(.mg-premium-home) {
 /* Grid Premium Horizontal Cards */
 .mg-premium-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .mg-card-premium {
   background: #ffffff;
   border-radius: 1.25rem;
-  padding: 1rem;
+  padding: 0.85rem 0.6rem;
   display: flex;
-  gap: 0.75rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.03);
   border: 1px solid rgba(0,0,0,0.03);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
-  align-items: flex-start;
+  min-width: 0;
+  width: 100%;
 }
 
 .mg-card-premium:active {
   transform: scale(0.97);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .mg-card-icon-wrap {
@@ -293,27 +317,29 @@ body:has(.mg-premium-home) {
   justify-content: center;
   color: white;
   flex-shrink: 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* soft shadow for icon */
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -2px 0 rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .mg-card-info {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
 
 .mg-card-title {
-  margin: 0 0 2px 0;
-  font-size: 0.9rem;
+  margin: 0 0 1px 0;
+  font-size: 0.85rem;
   font-weight: 800;
   color: #1e293b;
+  line-height: 1.2;
 }
 
 .mg-card-desc {
-  margin: 0 0 8px 0;
-  font-size: 0.65rem;
+  margin: 0 0 6px 0;
+  font-size: 0.62rem;
   color: #64748b;
-  line-height: 1.3;
+  line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -324,17 +350,17 @@ body:has(.mg-premium-home) {
 .mg-card-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
+  margin-top: 2px;
 }
 
 .mg-badge-activo {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 3px 6px;
   background: #f0fdfa;
-  color: #0ea5e9; /* Light blue text for ACTIVO in image */
-  border-radius: 9999px; /* full rounded */
+  color: #0ea5e9;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
 }
 
 /* Egresos red active */
@@ -353,10 +379,9 @@ body:has(.mg-premium-home) {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 2px;
 }
 
 /* ---- BOTTOM NAV PREMIUM ---- */
@@ -366,7 +391,9 @@ body:has(.mg-premium-home) {
   left: 0;
   right: 0;
   height: 80px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.85); /* Premium glassmorphism */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(0,0,0,0.05); /* Solid line instead of radius */
   box-shadow: 0 -4px 25px rgba(0,0,0,0.03);
   z-index: 1000;
@@ -463,11 +490,5 @@ body:has(.mg-premium-home) {
   }
   .mg-nav-bwrap {
     max-width: 800px;
-  }
-}
-
-@media (max-width: 430px) {
-  .mg-premium-grid {
-    grid-template-columns: 1fr;
   }
 }
