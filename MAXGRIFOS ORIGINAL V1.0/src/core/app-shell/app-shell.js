@@ -19,6 +19,9 @@ import { ClienteList } from '../../modules/clientes/cliente-list.js';
 import { ClienteForm } from '../../modules/clientes/cliente-form.js';
 import { ClienteDetail } from '../../modules/clientes/cliente-detail.js';
 
+import { feedbackCenter } from '../feedback/feedback-center.js';
+import '../feedback/feedback-center.css';
+
 export class AppShell {
   constructor() {
     this.root = null;
@@ -54,6 +57,10 @@ export class AppShell {
     }
 
     this.renderShell(this.root);
+    
+    // Mount feedback center
+    feedbackCenter.mount(this.root);
+    window.__mg_feedback = feedbackCenter;
     
     // 1. Inicializar NIS (Gestos)
     nisController.init();
@@ -424,25 +431,7 @@ export class AppShell {
   }
 
   showNisToast(message) {
-    if (!this.root) return;
-
-    let toast = this.root.querySelector('.mg-nis-toast');
-
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.className = 'mg-nis-toast';
-      toast.setAttribute('role', 'status');
-      toast.setAttribute('aria-live', 'polite');
-      this.root.appendChild(toast);
-    }
-
-    toast.textContent = message;
-    toast.classList.add('is-visible');
-
-    window.clearTimeout(this.toastTimer);
-    this.toastTimer = window.setTimeout(() => {
-      toast.classList.remove('is-visible');
-    }, 2600);
+    window.__mg_feedback?.warn(message);
   }
 }
 

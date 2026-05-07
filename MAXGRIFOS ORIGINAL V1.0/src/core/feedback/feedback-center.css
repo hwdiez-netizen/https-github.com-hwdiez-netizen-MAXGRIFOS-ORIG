@@ -1,0 +1,111 @@
+
+.mg-feedback-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.mg-feedback-toast {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  animation: mg-toast-jump-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mg-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* WARNING: Top center, AMBER */
+.mg-feedback-warning {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+/* SUCCESS: Center screen, GREEN */
+.mg-feedback-success {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+/* ERROR: Right middle, RED */
+.mg-feedback-error {
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.mg-toast-exit {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+@keyframes mg-toast-jump-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.8);
+  }
+}
+
+.mg-feedback-success {
+    animation: mg-toast-center-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes mg-toast-center-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+.mg-feedback-error {
+    animation: mg-toast-right-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes mg-toast-right-in {
+  from {
+    opacity: 0;
+    transform: translate(20px, -50%) scale(0.8);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .mg-feedback-toast {
+    width: 90%;
+    max-width: none;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .mg-feedback-error {
+    right: 5%;
+    transform: translateY(-50%);
+  }
+}

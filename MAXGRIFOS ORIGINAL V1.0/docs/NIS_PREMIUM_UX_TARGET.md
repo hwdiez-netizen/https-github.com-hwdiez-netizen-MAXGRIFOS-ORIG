@@ -258,14 +258,51 @@ Si una referencia externa mejora UX sin romper arquitectura, puede adaptarse sel
 
 ---
 
-## Frase rectora
+## REGLA OFICIAL NIS — GLOBAL USER ASSISTANCE LAYERS
 
-MAXGRIFOS ERP V2 debe tener la solidez funcional de un ERP y la experiencia visual de una app móvil premium.
+NIS debe operar como capa transversal invisible de ayuda al usuario.
 
-Legacy aporta evidencia funcional cuando sirve.
+A partir de esta regla, todo módulo nuevo o migrado debe incluir desde su primer commit:
 
-La referencia externa aporta inspiración UX cuando sirve.
+### 1. DOUBLE TAP EDIT REVEAL
 
-La Constitución, NIS, mobile-first real y navegación premium gobiernan siempre.
+- Toda entidad editable debe permitir double tap sobre su card/list item.
+- El double tap no debe editar directamente.
+- Debe revelar una opción clara: "Editar".
+- Esa opción debe reutilizar el evento/ruta/handler oficial existente.
+- Prohibido crear rutas paralelas.
+- Prohibido bypass de handlers, stores, contracts o DB.
+- El single tap, scroll, swipe y botones existentes no deben romperse.
 
-El objetivo es una interfaz limpia, moderna, táctil, amigable y con efecto wow, sin deuda técnica.
+### 2. GLOBAL FEEDBACK / HEATMAP MESSAGES
+
+Todo proceso bloqueado, validado, exitoso o roto debe emitir feedback visible.
+
+#### A. AMBER / WARNING
+
+- Para dato obligatorio faltante.
+- Para validación bloqueante.
+- Para acción impedida por regla de negocio.
+- Debe emerger desde status bar / parte superior.
+- Ejemplo: "Falta Código Proveedor para generar SKU."
+
+#### B. GREEN / SUCCESS
+
+- Para proceso cerrado correctamente.
+- Para creación, actualización, guardado o cancelación exitosa.
+- Debe emerger desde el centro de la pantalla.
+- Ejemplo: "Producto actualizado correctamente."
+
+#### C. RED / CRITICAL ERROR
+
+- Para error real de app, contrato, handler, runtime o proceso roto.
+- Debe emerger desde la mitad derecha de la pantalla.
+- Ejemplo: "No se pudo actualizar el producto. Verifique el flujo."
+
+### 3. IMPLEMENTATION STANDARD
+
+- No implementar mensajes sueltos por módulo.
+- Debe existir o respetarse un sistema global de feedback.
+- Los módulos deben emitir intención/estado; la capa global decide presentación visual.
+- NIS debe ser invisible cuando no se necesita y visible cuando el usuario necesita guía.
+- Ningún módulo futuro se considera completo si no integra estas capas.

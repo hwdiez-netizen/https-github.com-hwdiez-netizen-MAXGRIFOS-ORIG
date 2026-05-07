@@ -14,7 +14,12 @@ Final hardening of NIS 2.0 to ensure 100% decoupling from native navigation and 
 - **Status**: Audit performed. Changes detected in root `/` by previous execution.
 - **Correction**: All changes synchronized and verified inside `/MAXGRIFOS ORIGINAL V1.0`.
 
-## 4. Final Verdict
+## 4. Global User Assistance Layers (Mandatory Hardening)
+- **Status**: Registered.
+- **Requirement**: All future or migrated modules MUST include Double Tap Edit Reveal and Global Feedback Layers (Amber/Green/Red).
+- **Control**: No module is considered complete without these assistance layers.
+
+## 5. Final Verdict
 - Visual Navigation: OK
 - Process Locking: OK
 - Scroll Protection: OK

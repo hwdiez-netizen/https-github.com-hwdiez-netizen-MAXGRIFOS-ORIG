@@ -288,6 +288,7 @@ export class ProductForm {
     const uom = this.container.querySelector('#uom').value;
     
     if (!nombre || !refProveedor) {
+      window.__mg_feedback?.warn('Complete todos los campos requeridos.');
       this._showFeedback('⚠️ Complete todos los campos requeridos.', 'error');
       return;
     }
@@ -310,6 +311,7 @@ export class ProductForm {
     // Final duplicate guard (idempotent with live check)
     const excludeId = this._editProduct?.id ?? null;
     if (await handleCheckSkuAvailability(sku, excludeId)) {
+      window.__mg_feedback?.warn('SKU ya existe. Verifique los datos.');
       this._showFeedback('🔴 SKU ya existe — creación bloqueada.', 'error');
       return;
     }
@@ -327,15 +329,18 @@ export class ProductForm {
     try {
       if (isEdit) {
         await handleUpdateProduct(this._editProduct.id, { nombre, ref_proveedor: refProveedor, uom });
+        window.__mg_feedback?.success('Producto actualizado correctamente.');
         this._showFeedback(`✅ Producto actualizado: ${sku}`, 'success');
         setTimeout(() => window.__erp_navigate?.('lista'), 1200);
       } else {
         await handleCreateProduct({ nombre, ref_proveedor: refProveedor, uom, sku, categoria: cat, subcategoria: sub, atributo: atr });
+        window.__mg_feedback?.success('Producto creado correctamente.');
         this._showFeedback(`✅ Creado: ${sku}`, 'success');
         e.target.reset();
         this._renderPreview('—', null);
       }
     } catch (err) {
+      window.__mg_feedback?.error(err.message || 'Error crítico al procesar producto.');
       this._showFeedback(`Error: ${err.message}`, 'error');
     } finally {
       btn.disabled = false;

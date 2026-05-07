@@ -450,27 +450,33 @@ export class ClienteForm {
       : (isEdit ? Number(this._editCliente?.compra_minima ?? 0) : 0);
 
     if (!razon_social) {
+      window.__mg_feedback?.warn('La Razón Social es obligatoria.');
       this._showFeedback('La Razon Social es obligatoria.', 'error');
       return;
     }
     if (!nit && !cedula) {
+      window.__mg_feedback?.warn('Debe ingresar al menos NIT o Cédula.');
       this._showFeedback('Debe ingresar al menos NIT o Cedula.', 'error');
       return;
     }
     if (!forma_pago) {
+      window.__mg_feedback?.warn('Debe definir la Forma de Pago del cliente.');
       this._showFeedback('Debe definir la Forma de Pago del cliente.', 'error');
       return;
     }
     if (direccion === null) {
+      window.__mg_feedback?.warn('Dirección incompleta.');
       this._showFeedback('Completa la direccion con formato: TIPO + No + # + No-No.', 'error');
       return;
     }
     const isContadoFormaPago = forma_pago === 'CONTADO_B2B' || forma_pago === 'CONTADO';
     if (!isEdit && !isContadoFormaPago && cupo_credito <= 0) {
+      window.__mg_feedback?.warn('Cupo Crédito debe ser mayor a cero.');
       this._showFeedback('El campo Cupo Credito debe ser mayor a cero.', 'error');
       return;
     }
     if (!isEdit && compra_minima <= 0) {
+      window.__mg_feedback?.warn('Compra Mínima debe ser mayor a cero.');
       this._showFeedback('El campo Compra Minima debe ser mayor a cero.', 'error');
       return;
     }
@@ -501,17 +507,20 @@ export class ClienteForm {
       if (isEdit) {
         await handleUpdateCliente(this._editCliente.id, data);
         this._saved = true;
+        window.__mg_feedback?.success('Cliente actualizado correctamente.');
         this._showFeedback('Cliente actualizado correctamente.', 'success');
         window.alert('Cliente actualizado correctamente.');
         setTimeout(() => window.__erp_navigate?.('clientes'), 300);
       } else {
         await handleCreateCliente(data);
         this._saved = true;
+        window.__mg_feedback?.success('Cliente creado correctamente.');
         this._showFeedback('Cliente registrado correctamente.', 'success');
         window.alert('Cliente registrado correctamente.');
         setTimeout(() => window.__erp_navigate?.('clientes'), 300);
       }
     } catch (err) {
+      window.__mg_feedback?.error(err.message || 'Error crítico al procesar cliente.');
       this._showFeedback(`Error: ${err.message}`, 'error');
     } finally {
       btn.disabled = false;
