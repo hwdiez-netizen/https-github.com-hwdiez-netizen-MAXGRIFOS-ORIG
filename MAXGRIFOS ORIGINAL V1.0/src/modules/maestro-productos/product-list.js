@@ -37,19 +37,21 @@ export class ProductList {
   async mount() {
     applyProductsNisPhase1Overlay(this.container);
     this.container.innerHTML = `
-      <div class="list-container mg-premium-flow module-productos">
-        <div class="list-header">
-          <h2>Productos</h2>
-          <span class="product-count" id="pcount"></span>
+      <div class="mg-premium-flow module-productos">
+        <div class="list-container">
+          <div class="list-header">
+            <h2>Productos</h2>
+            <span class="product-count" id="pcount"></span>
+          </div>
+          <button class="btn-primary" id="btn-nuevo-producto" style="width:100%;margin-bottom:12px">+ Nuevo Producto</button>
+          <input type="search" id="prod-search" placeholder="Buscar por nombre, SKU o ref. proveedor…"
+            style="width:100%;box-sizing:border-box;margin-bottom:10px;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
+          <div class="sub-tabs" role="tablist">
+            <button class="sub-tab active" data-tab="active" role="tab">🟢 Activos</button>
+            <button class="sub-tab" data-tab="inactive" role="tab">🔴 Inactivos</button>
+          </div>
+          <div id="plist-body" class="list-body-wrapper"><div class="loading">Cargando...</div></div>
         </div>
-        <button class="btn-primary" id="btn-nuevo-producto" style="width:100%;margin-bottom:12px">+ Nuevo Producto</button>
-        <input type="search" id="prod-search" placeholder="Buscar por nombre, SKU o ref. proveedor…"
-          style="width:100%;box-sizing:border-box;margin-bottom:10px;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px">
-        <div class="sub-tabs" role="tablist">
-          <button class="sub-tab active" data-tab="active" role="tab">🟢 Activos</button>
-          <button class="sub-tab" data-tab="inactive" role="tab">🔴 Inactivos</button>
-        </div>
-        <div id="plist-body"><div class="loading">Cargando...</div></div>
       </div>`;
 
     this.container.querySelector('#btn-nuevo-producto')?.addEventListener('click', () => {

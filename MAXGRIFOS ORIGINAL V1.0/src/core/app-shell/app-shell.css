@@ -96,10 +96,16 @@
 
 .mg-main-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding-bottom: calc(var(--mg-nav-height) + var(--mg-spacing-xl));
+  position: relative;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
 }
 
@@ -184,12 +190,12 @@
   transform: translateX(-50%) translateY(0);
 }
 
-.mg-app-shell,
-.mg-main-content {
-  overscroll-behavior: contain;
+.mg-app-shell {
+  overscroll-behavior-y: auto;
 }
 
 .mg-main-content {
+  overscroll-behavior-y: auto;
   touch-action: pan-y;
 }
 
@@ -224,12 +230,12 @@
     margin: 0;
   }
   
-  .mg-smartphone-shell {
+.mg-smartphone-shell {
     position: relative;
     width: 375px;
-    height: 667px; /* 9:16 aspect ratio exactly */
-    min-height: auto; /* override 100vh from app-shell */
-    max-height: 95vh;
+    height: 100%; /* Change fixed height to full height of body flex container */
+    max-height: 812px; /* iOS standard aspect ratio height approx */
+    min-height: 667px;
     border-radius: 36px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 10px #1e293b, 0 0 0 12px #334155;
     overflow-x: hidden;
@@ -255,6 +261,31 @@
 .mg-premium-flow {
   --mg-premium-radius: 1.25rem;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.mg-premium-flow .list-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--mg-spacing-md);
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.mg-premium-flow .list-body-wrapper {
+  flex: 1;
+  margin-top: 14px;
+  padding-bottom: calc(var(--mg-nav-height) + 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mg-premium-flow .list-header h2 {

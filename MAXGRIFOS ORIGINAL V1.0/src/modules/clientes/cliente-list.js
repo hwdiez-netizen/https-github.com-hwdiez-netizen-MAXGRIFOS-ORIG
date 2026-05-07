@@ -83,31 +83,33 @@ export class ClienteList {
     const list = this._filtered();
 
     this.container.innerHTML = `
-      <div class="list-container mg-premium-flow module-clientes">
-        <div class="list-header">
-          <h2>Clientes</h2>
-          <span class="product-count">${total} activos · ${inactivo} inactivos</span>
-        </div>
+      <div class="mg-premium-flow module-clientes">
+        <div class="list-container">
+          <div class="list-header">
+            <h2>Clientes</h2>
+            <span class="product-count">${total} activos · ${inactivo} inactivos</span>
+          </div>
 
-        <button class="btn-primary" id="btn-nuevo-cliente" style="margin-bottom:16px">
-          + Nuevo Cliente
-        </button>
-
-        <input type="search" class="search-input" id="cliente-search"
-          placeholder="Buscar por nombre, cedula, NIT o ciudad..."
-          value="${this._query}" autocomplete="off">
-
-        <div class="sub-tabs" style="margin-top:12px">
-          <button class="sub-tab ${this._tab === 'active' ? 'active' : ''}" data-tab="active">
-            Activos (${this._clientes.filter((c) => c.status === 'active' || !c.status).length})
+          <button class="btn-primary" id="btn-nuevo-cliente" style="margin-bottom:16px">
+            + Nuevo Cliente
           </button>
-          <button class="sub-tab ${this._tab === 'inactive' ? 'active' : ''}" data-tab="inactive">
-            Inactivos (${inactivo})
-          </button>
-        </div>
 
-        <div id="cliente-list-body" style="margin-top:14px">
-          ${list.length === 0 ? this._emptyState() : list.map((c) => this._cardHtml(c)).join('')}
+          <input type="search" class="search-input" id="cliente-search"
+            placeholder="Buscar por nombre, cedula, NIT o ciudad..."
+            value="${this._query}" autocomplete="off">
+
+          <div class="sub-tabs" style="margin-top:12px">
+            <button class="sub-tab ${this._tab === 'active' ? 'active' : ''}" data-tab="active">
+              Activos (${this._clientes.filter((c) => c.status === 'active' || !c.status).length})
+            </button>
+            <button class="sub-tab ${this._tab === 'inactive' ? 'active' : ''}" data-tab="inactive">
+              Inactivos (${inactivo})
+            </button>
+          </div>
+
+          <div id="cliente-list-body" class="list-body-wrapper">
+            ${list.length === 0 ? this._emptyState() : list.map((c) => this._cardHtml(c)).join('')}
+          </div>
         </div>
       </div>`;
 
