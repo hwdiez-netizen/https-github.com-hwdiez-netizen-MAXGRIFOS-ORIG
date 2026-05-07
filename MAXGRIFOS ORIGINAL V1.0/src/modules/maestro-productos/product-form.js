@@ -47,11 +47,9 @@ export class ProductForm {
     this._prefillSku = null;
     this._editProduct = null;
     this._skuLocked = false;
-    this._saved = false;
   }
 
   canUnmount() {
-    if (this._saved) return true;
     const nombre = this.container.querySelector('#nombre')?.value?.trim();
     const ref    = this.container.querySelector('#ref-proveedor')?.value?.trim();
     if (nombre || ref || this._editProduct) {
@@ -71,19 +69,8 @@ export class ProductForm {
   }
 
   setEditProduct(product) {
-    if (!product || !product.id) {
-      console.warn('[ProductForm] Attempted to edit invalid product:', product);
-      return;
-    }
     this._editProduct = product;
-    // Ensure we have a SKU even if the record is legacy/incomplete
-    const currentSku = product.sku;
-    if ((!currentSku || currentSku === '—') && product.nombre) {
-      const official = generateSKU(product.nombre, product.ref_proveedor || '');
-      this._prefillSku = official.sku;
-    } else {
-      this._prefillSku = currentSku;
-    }
+    this._prefillSku = product.sku;
     this._skuLocked = true;
   }
 
@@ -226,18 +213,15 @@ export class ProductForm {
     });
 
     this.container.querySelector('#btn-cancel')?.addEventListener('click', () => {
-      if (this._saved) { window.__erp_navigate?.('lista'); return; }
       const nombre = this.container.querySelector('#nombre')?.value?.trim();
       const ref    = this.container.querySelector('#ref-proveedor')?.value?.trim();
       if (this._editProduct) {
         if (!confirm('¿Cancelar la edición?\nEl producto NO será eliminado. Solo se descartan los cambios no guardados.')) return;
-        this._saved = true; // Mark as "safe to exit" to bypass canUnmount guard
         window.__erp_navigate?.('lista');
         return;
       }
       if ((nombre || ref) &&
           !confirm('¿Cancelar el registro?\nSe perderán los datos ingresados.')) return;
-      this._saved = true; // Mark as "safe to exit" to bypass canUnmount guard
       window.__erp_navigate?.('lista');
     });
 
@@ -247,25 +231,7 @@ export class ProductForm {
   async _updateSkuPreview() {
     if (this._skuLocked) {
       const sku = this._prefillSku;
-      let decoded = sku ? decodeSkuV5(sku) : null;
-      
-      // Fallback: If decode fails, use fields from _editProduct or recalculate
-      if (!decoded && this._editProduct) {
-        decoded = {
-          cat: this._editProduct.categoria || '—',
-          sub: this._editProduct.subcategoria || '—',
-          atr: this._editProduct.atributo || '—'
-        };
-        
-        // If still empty, try engine (silent metadata recovery)
-        if (decoded.cat === '—' && this._editProduct.nombre) {
-          const engine = generateSKU(this._editProduct.nombre, this._editProduct.ref_proveedor || '');
-          decoded.cat = engine.cat;
-          decoded.sub = engine.sub;
-          decoded.atr = engine.atr;
-        }
-      }
-      
+      const decoded = sku ? decodeSkuV5(sku) : null;
       this._renderPreview(sku ?? '—', decoded);
       return;
     }
@@ -361,16 +327,13 @@ export class ProductForm {
     try {
       if (isEdit) {
         await handleUpdateProduct(this._editProduct.id, { nombre, ref_proveedor: refProveedor, uom });
-        this._saved = true;
         this._showFeedback(`✅ Producto actualizado: ${sku}`, 'success');
         setTimeout(() => window.__erp_navigate?.('lista'), 1200);
       } else {
         await handleCreateProduct({ nombre, ref_proveedor: refProveedor, uom, sku, categoria: cat, subcategoria: sub, atributo: atr });
-        this._saved = true;
         this._showFeedback(`✅ Creado: ${sku}`, 'success');
         e.target.reset();
         this._renderPreview('—', null);
-        this._saved = false; // reset so user can create another
       }
     } catch (err) {
       this._showFeedback(`Error: ${err.message}`, 'error');

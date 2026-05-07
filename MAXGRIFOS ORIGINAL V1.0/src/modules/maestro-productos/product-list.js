@@ -147,6 +147,92 @@ export class ProductList {
         this._handleAction(chk.dataset.action, chk.dataset.id);
       });
     });
+
+    // Interaction 2.0: Double Tap to reveal Edit / Single Tap to Detail
+    body.querySelectorAll('.product-card').forEach((card) => {
+      let lastTap = 0;
+      card.addEventListener('click', (e) => {
+        // Bypass if clicking an existing action button or toggle
+        if (e.target.closest('[data-action]') || e.target.closest('.status-toggle')) return;
+
+        const now = e.timeStamp;
+        const delta = now - lastTap;
+        lastTap = now;
+
+        const id = card.dataset.productId;
+
+        // Double Tap Detection (280ms - 350ms)
+        if (delta > 0 && delta < 350) {
+          e.preventDefault();
+          e.stopPropagation();
+          this._revealEdit(card, id);
+          return;
+        }
+
+        // Don't navigate if a reveal overlay is active
+        if (card.querySelector('.double-tap-reveal')) return;
+
+        // Simple Tap -> Detail
+        const product = this._itemsById.get(id);
+        if (product) {
+          window.__erp_navigate?.('detail', { product });
+        }
+      });
+    });
+  }
+
+  _revealEdit(card, id) {
+    const existing = card.querySelector('.double-tap-reveal');
+    if (existing) {
+      existing.remove();
+      return;
+    }
+
+    // Clear reveals from other cards
+    this.container.querySelectorAll('.double-tap-reveal').forEach(el => el.remove());
+
+    const product = this._itemsById.get(id);
+    if (!product) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'double-tap-reveal';
+    overlay.style.cssText = `
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-radius: 12px; z-index: 50; gap: 12px;
+      animation: mgFadeIn 0.2s ease-out;
+      backdrop-filter: blur(2px);
+      box-shadow: inset 0 0 0 2px var(--mg-primary, #2563eb);
+    `;
+
+    overlay.innerHTML = `
+      <span style="font-size: 14px; color: #4b5563; font-weight: 500">¿Editar este producto?</span>
+      <div style="display:flex; gap:12px">
+        <button class="btn-primary edit-confirm" style="padding: 8px 20px; font-size: 13px">✏️ Editar</button>
+        <button class="btn-secondary edit-cancel" style="padding: 8px 16px; font-size: 13px; background:#f3f4f6">Cancelar</button>
+      </div>
+    `;
+
+    overlay.querySelector('.edit-confirm').addEventListener('click', (e) => {
+      e.stopPropagation();
+      eventBus.emit(Events.EDIT_PRODUCT, product);
+      overlay.remove();
+    });
+
+    overlay.querySelector('.edit-cancel').addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.remove();
+    });
+
+    // Handle clicks outside the overlay to close it
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.remove();
+    });
+
+    card.style.position = 'relative';
+    card.appendChild(overlay);
   }
 
   _cardHTML(p) {

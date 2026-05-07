@@ -82,15 +82,15 @@ export class AppShell {
     });
 
     if (!this._editClienteSubscribed) {
-      this._editClienteUnsubscribe = domainEventBus.on(Events.EDIT_CLIENTE, async ({ payload }) => {
-        await this.mountClientesLegacy('form', { cliente: payload });
+      this._editClienteUnsubscribe = domainEventBus.on(Events.EDIT_CLIENTE, async (cliente) => {
+        await this.mountClientesLegacy('form', { cliente });
       });
       this._editClienteSubscribed = true;
     }
 
     if (!this._editProductSubscribed) {
-      this._editProductUnsubscribe = domainEventBus.on(Events.EDIT_PRODUCT, async ({ payload }) => {
-        await this.mountProductosLegacy('nuevo', { editProduct: payload });
+      this._editProductUnsubscribe = domainEventBus.on(Events.EDIT_PRODUCT, async (product) => {
+        await this.mountProductosLegacy('nuevo', { editProduct: product });
       });
       this._editProductSubscribed = true;
     }
