@@ -121,15 +121,49 @@ export class AppShell {
     this.mainContent = main;
 
     const nav = document.createElement('nav');
-    nav.className = 'mg-nav-bottom';
+    nav.className = 'mg-nav-premium';
+    nav.id = 'mg-appshell-premium-nav';
     nav.innerHTML = `
-      <div class="mg-nav-item active" data-path="/"><i>🏠</i><span>Inicio</span></div>
-      <div class="mg-nav-item" data-path="/productos"><i>📦</i><span>Productos</span></div>
-      <div class="mg-nav-item" data-path="/scanner"><i>🔍</i><span>Escanear</span></div>
-      <div class="mg-nav-item" data-path="/ventas"><i>🛒</i><span>Ventas</span></div>
+      <div class="mg-nav-bwrap">
+        <button class="mg-nav-btn active" data-path="/" type="button">
+          <span class="mg-nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </span>
+          <span class="mg-nav-text">Inicio</span>
+          <span class="mg-nav-dot"></span>
+        </button>
+
+        <button class="mg-nav-btn" data-path="/facturacion" type="button">
+          <span class="mg-nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </span>
+          <span class="mg-nav-text">Factura</span>
+        </button>
+
+        <button class="mg-nav-btn" data-path="/productos" type="button">
+          <span class="mg-nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </span>
+          <span class="mg-nav-text">Productos</span>
+        </button>
+
+        <button class="mg-nav-btn" data-path="/scanner" type="button">
+          <span class="mg-nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><rect x="7" y="7" width="10" height="10" rx="1"></rect></svg>
+          </span>
+          <span class="mg-nav-text">Escanear</span>
+        </button>
+
+        <button class="mg-nav-btn" data-path="/configuracion" type="button">
+          <span class="mg-nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+          </span>
+          <span class="mg-nav-text">Más</span>
+        </button>
+      </div>
     `;
 
-    nav.querySelectorAll('.mg-nav-item').forEach(item => {
+    nav.querySelectorAll('.mg-nav-btn').forEach(item => {
       item.addEventListener('click', () => this.navigateTo(item.dataset.path));
     });
 
@@ -317,7 +351,17 @@ export class AppShell {
     window.location.hash = path;
     if (!this.mainContent) return;
 
-    // Highlight Nav
+    const isHomeRoute = path === '/' || path === '';
+    const appShellPremiumNav = this.root?.querySelector('#mg-appshell-premium-nav');
+    if (appShellPremiumNav) {
+      appShellPremiumNav.style.display = isHomeRoute ? 'none' : '';
+    }
+
+    // Highlight Premium Nav
+    document.querySelectorAll('.mg-nav-btn').forEach(item => {
+      item.classList.toggle('active', item.dataset.path === path);
+    });
+
     document.querySelectorAll('.mg-nav-item').forEach(item => {
       item.classList.toggle('active', item.dataset.path === path);
     });

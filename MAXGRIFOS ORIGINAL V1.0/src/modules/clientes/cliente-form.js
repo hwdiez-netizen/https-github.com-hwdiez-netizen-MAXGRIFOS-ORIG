@@ -161,7 +161,7 @@ export class ClienteForm {
     ).join('');
 
     return `
-      <div class="form-container">
+      <div class="form-container mg-mobile-form-safe">
         <button type="button" class="btn-back" id="btn-back">← Volver</button>
         <h2>${isEdit ? 'Editar Cliente' : 'Nuevo Cliente'}</h2>
         ${isEdit ? `<div class="form-mode-badge form-mode-edit">Editando cliente existente</div>` : ''}
