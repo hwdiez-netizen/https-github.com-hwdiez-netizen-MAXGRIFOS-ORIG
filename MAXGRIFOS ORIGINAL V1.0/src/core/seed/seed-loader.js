@@ -1,5 +1,8 @@
 /**
  * Seed Loader - Cargador determinístico de datos maestros
+ *
+ * PROTOCOLO MOCK DATA:
+ * Ver REGLA OFICIAL en src/mock/maxgrifos-seed-data.js
  */
 import { SEED_CONFIG } from './seed-flags.js';
 import { SEED_DATA } from '../../mock/maxgrifos-seed-data.js';

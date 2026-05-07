@@ -1,4 +1,5 @@
 import { eventBus, Events } from '../../events/domain-events.js';
+import { generateSKU } from './sku-engine.js';
 import { handleDeactivateProduct, handleActivateProduct } from './product-handlers.js';
 import { applyProductsNisPhase1Overlay, bindSwipeRightToBack } from './product-nis-phase1-overlay.js';
 
@@ -20,6 +21,16 @@ export class ProductDetail {
 
   mount() {
     applyProductsNisPhase1Overlay(this.container);
+    
+    // RUNTIME NORMALIZATION: Ensure legacy or incomplete products have SKU/Metadata
+    if ((!this.product.sku || this.product.sku === '—') && this.product.nombre) {
+      const engine = generateSKU(this.product.nombre, this.product.ref_proveedor || '');
+      this.product.sku = engine.sku;
+      this.product.categoria = engine.cat;
+      this.product.subcategoria = engine.sub;
+      this.product.atributo = engine.atr;
+    }
+
     const p = this.product;
     const costStr = formatCost(p.costo);
 

@@ -673,7 +673,7 @@ export async function getProduct(id) {
 
 export async function getAllProducts() {
   const all = await db.getAll('products');
-  return all.sort((a, b) => b.created_at.localeCompare(a.created_at));
+  return all.sort((a, b) => String(b.created_at ?? '').localeCompare(String(a.created_at ?? '')));
 }
 
 export async function getProductsBySku(sku) {

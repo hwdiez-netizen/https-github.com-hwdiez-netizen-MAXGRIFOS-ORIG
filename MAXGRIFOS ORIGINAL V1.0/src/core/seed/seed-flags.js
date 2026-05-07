@@ -6,7 +6,11 @@ const isSmartphoneSeedEnabled = () => {
   if (typeof window === 'undefined') return false;
 
   try {
-    if (window.location.hostname === 'https-github-com-hwdiez-netizen-max.vercel.app') {
+    const host = window.location.hostname;
+    if (host === 'https-github-com-hwdiez-netizen-max.vercel.app' || 
+        host.includes('ais-dev-') || 
+        host.includes('ais-pre-') ||
+        host.includes('run.app')) {
       return true;
     }
   } catch(e) {}
@@ -28,7 +32,7 @@ const isSmartphoneSeedEnabled = () => {
 };
 
 export const SEED_CONFIG = {
-  ENABLED: isSmartphoneSeedEnabled(),
+  ENABLED: true, // Forzado para validar precarga en AIS
   RELOAD_ON_START: false,
   VERSION: '0.1.0'
 };

@@ -2,6 +2,7 @@ import { getAllProducts, getMovimientosByProduct } from '../../db/local-db.js';
 import { getSaldoByProduct } from '../kardex/kardex-store.js';
 import { BODEGA_CENTRAL_ID } from '../kardex/bodega-store.js';
 import { seedLoader } from '../../core/seed/seed-loader.js';
+import { generateSKU } from './sku-engine.js';
 
 function _getCostoVigente(movimientos, product) {
   const entradaCompra = [...movimientos]
@@ -24,14 +25,28 @@ export async function queryProductosList(params = {}) {
     const dbIdentityKeys = new Set(all.map(p => p.identity_key).filter(Boolean));
     
     for (const seedProduct of seedData.products) {
-      if (!dbSkus.has(seedProduct.sku) && !dbIdentityKeys.has(seedProduct.identity_key)) {
+      const nombre = seedProduct.nombre || seedProduct.name;
+      const ref_proveedor = seedProduct.ref_proveedor || '';
+      
+      // Motor oficial para campos derivados (V5 SKU Compliance)
+      const official = generateSKU(nombre, ref_proveedor);
+      const generatedId = `PROD:${official.sku}`;
+
+      if (!dbSkus.has(official.sku) && !dbIdentityKeys.has(generatedId)) {
         all.push({
           ...seedProduct,
-          nombre: seedProduct.nombre || seedProduct.name,
+          id: generatedId,
+          identity_key: generatedId,
+          idempotency_key: `SEED:PROD:${official.sku}`,
+          nombre,
+          ref_proveedor,
           uom: seedProduct.uom || seedProduct.unit,
           status: seedProduct.status ? seedProduct.status.toLowerCase() : 'active',
-          categoria: seedProduct.categoria || seedProduct.category,
-          subcategoria: seedProduct.subcategoria || seedProduct.subcategory,
+          sku: official.sku,
+          code128: official.sku,
+          categoria: official.cat,
+          subcategoria: official.sub,
+          atributo: official.atr,
           costo: seedProduct.costo || seedProduct.cost
         });
       }
@@ -39,6 +54,15 @@ export async function queryProductosList(params = {}) {
   }
 
   const enriched = await Promise.all(all.map(async (p) => {
+    // RUNTIME NORMALIZATION: Ensure legacy or incomplete products have SKU/Metadata
+    if ((!p.sku || p.sku === '—') && p.nombre) {
+      const engine = generateSKU(p.nombre, p.ref_proveedor || '');
+      p.sku = engine.sku;
+      p.categoria = engine.cat;
+      p.subcategoria = engine.sub;
+      p.atributo = engine.atr;
+    }
+
     const movimientos = await getMovimientosByProduct(p.id);
     const stockDisponibleReal = await getSaldoByProduct(p.id, BODEGA_CENTRAL_ID);
     const costoVigenteReal = _getCostoVigente(movimientos, p);

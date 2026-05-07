@@ -43,7 +43,7 @@ function hasStableValue(value) {
   return value !== null && value !== undefined && String(value).trim() !== '';
 }
 
-function normalizeClienteKeyPart(value) {
+export function normalizeClienteKeyPart(value) {
   return String(value ?? '')
     .trim()
     .toUpperCase()
@@ -52,7 +52,7 @@ function normalizeClienteKeyPart(value) {
     .replace(/^-|-$/g, '');
 }
 
-function buildClienteIdentity(data) {
+export function buildClienteIdentity(data) {
   const rawNit = data.nit ? normalizeClienteKeyPart(data.nit) : '';
   if (rawNit) {
     return {
