@@ -150,19 +150,25 @@ export class ProductList {
 
     // Interaction 2.0: Double Tap to reveal Edit / Single Tap to Detail
     body.querySelectorAll('.product-card').forEach((card) => {
+      let tapTimer = null;
       let lastTap = 0;
+
       card.addEventListener('click', (e) => {
         // Bypass if clicking an existing action button or toggle
         if (e.target.closest('[data-action]') || e.target.closest('.status-toggle')) return;
+
+        const id = card.dataset.productId;
+        if (!id) return;
 
         const now = e.timeStamp;
         const delta = now - lastTap;
         lastTap = now;
 
-        const id = card.dataset.productId;
-
-        // Double Tap Detection (280ms - 350ms)
         if (delta > 0 && delta < 350) {
+          if (tapTimer) {
+            window.clearTimeout(tapTimer);
+            tapTimer = null;
+          }
           e.preventDefault();
           e.stopPropagation();
           this._revealEdit(card, id);
@@ -172,11 +178,13 @@ export class ProductList {
         // Don't navigate if a reveal overlay is active
         if (card.querySelector('.double-tap-reveal')) return;
 
-        // Simple Tap -> Detail
-        const product = this._itemsById.get(id);
-        if (product) {
-          window.__erp_navigate?.('detail', { product });
-        }
+        tapTimer = window.setTimeout(() => {
+          tapTimer = null;
+          const product = this._itemsById.get(id);
+          if (product) {
+            window.__erp_navigate?.('detail', { product });
+          }
+        }, 350);
       });
     });
   }

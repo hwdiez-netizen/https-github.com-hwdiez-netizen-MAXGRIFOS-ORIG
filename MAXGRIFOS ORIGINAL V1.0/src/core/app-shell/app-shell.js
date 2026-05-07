@@ -72,7 +72,11 @@ export class AppShell {
       }
     });
 
-    window.addEventListener('nis:doubletap', () => {
+    window.addEventListener('nis:doubletap', (e) => {
+      const target = e.detail?.target || e.target;
+      if (target?.closest?.('.product-card')) {
+        return;
+      }
       this.showNisToast('Vista rápida disponible próximamente.');
     });
 
