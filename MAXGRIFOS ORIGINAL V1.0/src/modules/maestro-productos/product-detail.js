@@ -1,5 +1,6 @@
 import { eventBus, Events } from '../../events/domain-events.js';
 import { generateSKU } from './sku-engine.js';
+import { confirmDialog } from '../../utils/confirm-dialog.js';
 import { handleDeactivateProduct, handleActivateProduct } from './product-handlers.js';
 import { applyProductsNisPhase1Overlay, bindSwipeRightToBack } from './product-nis-phase1-overlay.js';
 
@@ -59,7 +60,6 @@ export class ProductDetail {
         </div>
 
         <div class="detail-actions">
-          <button class="btn-primary" id="btn-det-edit">✏️ Editar</button>
           <button class="btn-action ${p.status === 'active' ? 'btn-deactivate' : 'btn-activate'}" id="btn-det-toggle">
             ${p.status === 'active' ? '🔴 Desactivar' : '✅ Activar'}
           </button>
@@ -71,16 +71,26 @@ export class ProductDetail {
       window.__erp_navigate?.('lista');
     });
 
-    this.container.querySelector('#btn-det-edit').addEventListener('click', () => {
-      eventBus.emit(Events.EDIT_PRODUCT, this.product);
-    });
+    const detailCard = this.container.querySelector('.product-detail-card');
+    if (detailCard) {
+      let lastTap = 0;
+      detailCard.addEventListener('click', (e) => {
+        const now = e.timeStamp;
+        if (now - lastTap < 350) {
+          e.preventDefault();
+          e.stopPropagation();
+          this._revealEdit(detailCard);
+        }
+        lastTap = now;
+      });
+    }
 
     this.container.querySelector('#btn-det-toggle').addEventListener('click', async () => {
       if (this.product.status === 'active') {
-        if (!confirm('¿Desactivar este producto? Quedará registrado y podrá reactivarse.')) return;
+        if (!await confirmDialog('¿Desactivar este producto?\nQuedará registrado y podrá reactivarse.')) return;
         await handleDeactivateProduct(this.product.id);
       } else {
-        if (!confirm('¿Activar este producto? Quedará disponible nuevamente.')) return;
+        if (!await confirmDialog('¿Activar este producto?\nQuedará disponible nuevamente.')) return;
         await handleActivateProduct(this.product.id);
       }
       window.__erp_navigate?.('lista');
@@ -94,6 +104,53 @@ export class ProductDetail {
     this._gestureCleanup = bindSwipeRightToBack(this.container, () => {
       window.__erp_navigate?.('lista');
     });
+  }
+
+  _revealEdit(card) {
+    const existing = card.querySelector('.double-tap-reveal');
+    if (existing) {
+      existing.remove();
+      return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.className = 'double-tap-reveal';
+    overlay.style.cssText = `
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-radius: inherit; z-index: 50; gap: 12px;
+      animation: mgFadeIn 0.2s ease-out;
+      backdrop-filter: blur(2px);
+      box-shadow: inset 0 0 0 2px var(--mg-primary, #2563eb);
+    `;
+
+    overlay.innerHTML = `
+      <span style="font-size: 14px; color: #4b5563; font-weight: 500">¿Editar este producto?</span>
+      <div style="display:flex; gap:12px">
+        <button class="btn-primary edit-confirm" style="padding: 8px 20px; font-size: 13px">✏️ Editar</button>
+        <button class="btn-secondary edit-cancel" style="padding: 8px 16px; font-size: 13px; background:#f3f4f6">Cancelar</button>
+      </div>
+    `;
+
+    overlay.querySelector('.edit-confirm').addEventListener('click', (e) => {
+      e.stopPropagation();
+      eventBus.emit(Events.EDIT_PRODUCT, this.product);
+      overlay.remove();
+    });
+
+    overlay.querySelector('.edit-cancel').addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.remove();
+    });
+
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.remove();
+    });
+
+    card.style.position = 'relative';
+    card.appendChild(overlay);
   }
 
   unmount() {

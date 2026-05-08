@@ -264,7 +264,6 @@ export class ProductList {
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
         <span class="toggle-label">${toggleLabel}</span>
       </label>
-      <button class="btn-action btn-edit" data-action="edit" data-id="${p.id}">✏️ Editar</button>
       ${p.status === 'inactive' ? `<button class="btn-action btn-delete" data-action="delete" data-id="${p.id}">🗑️ Eliminar</button>` : ''}`;
 
     return `
