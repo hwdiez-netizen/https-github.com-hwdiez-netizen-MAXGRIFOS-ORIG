@@ -25,7 +25,21 @@ class Router {
 
   handleRouteChange(path) {
     this.currentPath = path;
-    const route = MG_ROUTES.find(r => r.path === path) || MG_ROUTES[0];
+    
+    // Buscar ruta en el registro oficial
+    let route = MG_ROUTES.find(r => r.path === path);
+    
+    // PC-9: Registro dinámico de módulo para Políticas Comerciales
+    if (!route && (path === '/politicas-comerciales' || path === '/politicas' || path === '/precios')) {
+      route = { 
+        path, 
+        view: 'politicas', 
+        label: 'Políticas Comerciales',
+        status: 'ACTIVE'
+      };
+    }
+
+    route = route || MG_ROUTES[0];
     
     eventBus.publish({
       type: CORE_EVENTS.NAVIGATION_CHANGED,

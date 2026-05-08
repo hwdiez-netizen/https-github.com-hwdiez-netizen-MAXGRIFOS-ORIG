@@ -38,6 +38,43 @@ function warnDeprecated(type, action) {
   console.warn(`[DEPRECATED] ${action} de ${type} sin reemplazo canonico.`);
 }
 
+function stableStringify(value) {
+  if (value === null || typeof value !== 'object') {
+    return JSON.stringify(value);
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => stableStringify(item)).join(',')}]`;
+  }
+
+  return `{${Object.keys(value)
+    .sort()
+    .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`)
+    .join(',')}}`;
+}
+
+function createDeterministicEventId(type, aggregateId, payload) {
+  const explicitKey = payload?._idempotency_key
+    ?? payload?.idempotency_key
+    ?? payload?.event_id
+    ?? payload?.eventId
+    ?? null;
+
+  if (explicitKey) return String(explicitKey);
+
+  const payloadSignature = stableStringify(payload ?? {});
+  return `EVENT:${type}:${aggregateId ?? 'NO_AGGREGATE'}:${payloadSignature}`;
+}
+
+function resolveDeterministicTimestamp(payload) {
+  return payload?.timestamp
+    ?? payload?.occurred_at
+    ?? payload?.updated_at
+    ?? payload?.created_at
+    ?? payload?.event_timestamp
+    ?? null;
+}
+
 class DomainEventBus {
   constructor() {
     this._listeners = new Map();
@@ -102,8 +139,8 @@ class DomainEventBus {
 
     const dispatchTypes = this._getDispatchTypes(type);
     const canonicalTraceType = LEGACY_TO_CANONICAL[type] ?? type;
-    const eventId = payload?._idempotency_key ?? crypto.randomUUID();
-    const timestamp = new Date().toISOString();
+    const eventId = createDeterministicEventId(canonicalTraceType, aggregateId, payload);
+    const timestamp = resolveDeterministicTimestamp(payload);
     const seenHandlers = new Set();
 
     const traceEvent = {
@@ -258,6 +295,38 @@ export const Events = {
   COMPRA_RECEPCIONADA: 'CompraRecepcionada',
   COSTO_PRODUCTO_CAMBIADO: 'CostoProductoCambiado',
 
+  // Políticas Comerciales / Listas de Precios
+  LISTA_PRECIOS_CREATE_REQUESTED: 'ListaPreciosCreateRequested',
+  LISTA_PRECIOS_CREATED: 'ListaPreciosCreated',
+  LISTA_PRECIOS_UPDATE_REQUESTED: 'ListaPreciosUpdateRequested',
+  LISTA_PRECIOS_UPDATED: 'ListaPreciosUpdated',
+  LISTA_PRECIOS_ACTIVATE_REQUESTED: 'ListaPreciosActivateRequested',
+  LISTA_PRECIOS_ACTIVATED: 'ListaPreciosActivated',
+  LISTA_PRECIOS_SUSPEND_REQUESTED: 'ListaPreciosSuspendRequested',
+  LISTA_PRECIOS_SUSPENDED: 'ListaPreciosSuspended',
+  LISTA_PRECIOS_CANCEL_REQUESTED: 'ListaPreciosCancelRequested',
+  LISTA_PRECIOS_CANCELLED: 'ListaPreciosCancelled',
+
+  PRECIO_ITEM_ASSIGN_REQUESTED: 'PrecioItemAssignRequested',
+  PRECIO_ITEM_ASSIGNED: 'PrecioItemAssigned',
+  PRECIO_ITEM_UPDATE_REQUESTED: 'PrecioItemUpdateRequested',
+  PRECIO_ITEM_UPDATED: 'PrecioItemUpdated',
+  PRECIO_ITEMS_SAVE_REQUESTED: 'PrecioItemsSaveRequested',
+  PRECIO_ITEMS_SAVED: 'PrecioItemsSaved',
+
+  DINAMICA_COMERCIAL_CREATE_REQUESTED: 'DinamicaComercialCreateRequested',
+  DINAMICA_COMERCIAL_CREATED: 'DinamicaComercialCreated',
+  DINAMICA_COMERCIAL_UPDATE_REQUESTED: 'DinamicaComercialUpdateRequested',
+  DINAMICA_COMERCIAL_UPDATED: 'DinamicaComercialUpdated',
+  DINAMICA_COMERCIAL_ACTIVATE_REQUESTED: 'DinamicaComercialActivateRequested',
+  DINAMICA_COMERCIAL_ACTIVATED: 'DinamicaComercialActivated',
+  DINAMICA_COMERCIAL_SUSPEND_REQUESTED: 'DinamicaComercialSuspendRequested',
+  DINAMICA_COMERCIAL_SUSPENDED: 'DinamicaComercialSuspended',
+
+  PRICE_RESOLUTION_REQUESTED: 'PriceResolutionRequested',
+  PRICE_RESOLUTION_RESOLVED: 'PriceResolutionResolved',
+  PRICE_RESOLUTION_FAILED: 'PriceResolutionFailed',
+
   // NIS — Navigation & Interaction System (§NIS ERP-CONSTITUTION V1.3)
   FLOW_OPENED: 'FlowOpened',
   SLIDE_VIEWED: 'SlideViewed',
@@ -268,4 +337,3 @@ export const Events = {
   FLOW_CANCELLED: 'FlowCancelled',
   FLOW_RESUMED: 'FlowResumed',
 };
-

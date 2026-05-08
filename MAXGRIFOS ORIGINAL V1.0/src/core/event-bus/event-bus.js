@@ -5,6 +5,7 @@
 class EventBus {
   constructor() {
     this.listeners = new Map();
+    this.sequence = 0;
   }
 
   /**
@@ -35,10 +36,13 @@ class EventBus {
       throw new Error('[EventBus] Event must have a type');
     }
 
+    this.sequence += 1;
+
     const eventWithMetadata = {
       ...event,
       metadata: {
-        timestamp: Date.now(),
+        sequence: this.sequence,
+        timestamp: event.metadata?.timestamp ?? null,
         idempotency_key: event.metadata?.idempotency_key || null,
         ...event.metadata
       }
