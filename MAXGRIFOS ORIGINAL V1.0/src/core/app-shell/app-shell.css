@@ -213,9 +213,125 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mg-nis-toast {
-    transition: none;
+/* NIS Confirm Dialog — Amber deterministic modal */
+.mg-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.52);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.mg-confirm-dialog {
+  width: min(92vw, 420px);
+  max-width: 420px;
+  background: #fffbeb;
+  border: 2px solid #f59e0b;
+  border-radius: 22px;
+  box-shadow:
+    0 22px 50px rgba(245, 158, 11, 0.28),
+    0 10px 30px rgba(15, 23, 42, 0.24);
+  padding: 22px;
+  color: #78350f;
+  font-family: inherit;
+  animation: mg-confirm-amber-in 180ms ease-out;
+}
+
+.mg-confirm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f59e0b;
+  color: #111827;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mg-confirm-message {
+  margin: 0;
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 750;
+  color: #78350f;
+}
+
+.mg-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.mg-confirm-cancel,
+.mg-confirm-ok {
+  border-radius: 14px;
+  padding: 11px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.mg-confirm-cancel {
+  background: #ffffff;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+}
+
+.mg-confirm-ok {
+  border: 0;
+  background: #f59e0b;
+  color: #111827;
+  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.28);
+}
+
+.mg-confirm-cancel:active,
+.mg-confirm-ok:active {
+  transform: scale(0.97);
+}
+
+@keyframes mg-confirm-amber-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .mg-confirm-overlay {
+    padding: 18px;
+  }
+
+  .mg-confirm-dialog {
+    width: min(94vw, 390px);
+    padding: 20px;
+  }
+
+  .mg-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mg-confirm-cancel,
+  .mg-confirm-ok {
+    width: 100%;
   }
 }
 

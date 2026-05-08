@@ -1,5 +1,7 @@
 export function confirmDialog(message) {
   return new Promise((resolve) => {
+    document.querySelectorAll('.mg-confirm-overlay').forEach((el) => el.remove());
+
     const overlay = document.createElement('div');
     overlay.className = 'mg-confirm-overlay';
 
@@ -7,6 +9,10 @@ export function confirmDialog(message) {
     dialog.className = 'mg-confirm-dialog';
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
+
+    const badge = document.createElement('div');
+    badge.className = 'mg-confirm-badge';
+    badge.textContent = '⚠️ Confirmación requerida';
 
     const text = document.createElement('p');
     text.className = 'mg-confirm-message';
@@ -25,19 +31,39 @@ export function confirmDialog(message) {
     okBtn.className = 'mg-confirm-ok';
     okBtn.textContent = 'OK';
 
+    let closed = false;
+
     const close = (value) => {
+      if (closed) return;
+      closed = true;
+      document.removeEventListener('keydown', onKeyDown);
       overlay.remove();
       resolve(value);
+    };
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') close(false);
     };
 
     cancelBtn.addEventListener('click', () => close(false));
     okBtn.addEventListener('click', () => close(true));
 
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) close(false);
+    });
+
+    document.addEventListener('keydown', onKeyDown);
+
     actions.appendChild(cancelBtn);
     actions.appendChild(okBtn);
+
+    dialog.appendChild(badge);
     dialog.appendChild(text);
     dialog.appendChild(actions);
+
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
+
+    cancelBtn.focus();
   });
 }
