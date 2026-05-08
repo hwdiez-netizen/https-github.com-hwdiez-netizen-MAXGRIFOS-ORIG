@@ -1,5 +1,6 @@
 import { generateSKU, decodeSkuV5 } from './sku-engine.js';
 import { handleCreateProduct, handleUpdateProduct, handleCheckSkuAvailability } from './product-handlers.js';
+import { confirmDialog } from '../../utils/confirm-dialog.js';
 
 const UOM_OPTIONS = [
   ['UND', 'Unidad (UND)'],
@@ -49,11 +50,11 @@ export class ProductForm {
     this._skuLocked = false;
   }
 
-  canUnmount() {
+  async canUnmount() {
     const nombre = this.container.querySelector('#nombre')?.value?.trim();
     const ref    = this.container.querySelector('#ref-proveedor')?.value?.trim();
     if (nombre || ref || this._editProduct) {
-      return confirm('¿Salir sin guardar?\nSe perderán los datos ingresados.');
+      return await confirmDialog('¿Salir sin guardar?\nSe perderán los datos ingresados.');
     }
     return true;
   }
@@ -163,7 +164,6 @@ export class ProductForm {
             Cancelar
           </button>
         </form>
-        <div id="form-feedback" class="feedback hidden"></div>
       </div>`;
   }
 
@@ -212,16 +212,16 @@ export class ProductForm {
       window.__erp_navigate?.('lista');
     });
 
-    this.container.querySelector('#btn-cancel')?.addEventListener('click', () => {
+    this.container.querySelector('#btn-cancel')?.addEventListener('click', async () => {
       const nombre = this.container.querySelector('#nombre')?.value?.trim();
       const ref    = this.container.querySelector('#ref-proveedor')?.value?.trim();
       if (this._editProduct) {
-        if (!confirm('¿Cancelar la edición?\nEl producto NO será eliminado. Solo se descartan los cambios no guardados.')) return;
+        if (!await confirmDialog('¿Cancelar la edición?\nEl producto NO será eliminado. Solo se descartan los cambios no guardados.')) return;
         window.__erp_navigate?.('lista');
         return;
       }
       if ((nombre || ref) &&
-          !confirm('¿Cancelar el registro?\nSe perderán los datos ingresados.')) return;
+          !await confirmDialog('¿Cancelar el registro?\nSe perderán los datos ingresados.')) return;
       window.__erp_navigate?.('lista');
     });
 
@@ -289,7 +289,6 @@ export class ProductForm {
     
     if (!nombre || !refProveedor) {
       window.__mg_feedback?.warn('Complete todos los campos requeridos.');
-      this._showFeedback('⚠️ Complete todos los campos requeridos.', 'error');
       return;
     }
 
@@ -312,7 +311,6 @@ export class ProductForm {
     const excludeId = this._editProduct?.id ?? null;
     if (await handleCheckSkuAvailability(sku, excludeId)) {
       window.__mg_feedback?.warn('SKU ya existe. Verifique los datos.');
-      this._showFeedback('🔴 SKU ya existe — creación bloqueada.', 'error');
       return;
     }
 
@@ -320,7 +318,7 @@ export class ProductForm {
     const confirmMsg = isEdit
       ? `¿Actualizar este producto?\n\nSKU: ${sku}\n${nombre}`
       : `¿Guardar nuevo producto?\n\nSKU: ${sku}\n${nombre}`;
-    if (!confirm(confirmMsg)) return;
+    if (!await confirmDialog(confirmMsg)) return;
 
     const btn = this.container.querySelector('#btn-submit');
     btn.disabled = true;
@@ -330,30 +328,26 @@ export class ProductForm {
       if (isEdit) {
         await handleUpdateProduct(this._editProduct.id, { nombre, ref_proveedor: refProveedor, uom });
         window.__mg_feedback?.success('Producto actualizado correctamente.');
-        this._showFeedback(`✅ Producto actualizado: ${sku}`, 'success');
         setTimeout(() => window.__erp_navigate?.('lista'), 1200);
       } else {
         await handleCreateProduct({ nombre, ref_proveedor: refProveedor, uom, sku, categoria: cat, subcategoria: sub, atributo: atr });
         window.__mg_feedback?.success('Producto creado correctamente.');
-        this._showFeedback(`✅ Creado: ${sku}`, 'success');
         e.target.reset();
         this._renderPreview('—', null);
       }
     } catch (err) {
       window.__mg_feedback?.error(err.message || 'Error crítico al procesar producto.');
-      this._showFeedback(`Error: ${err.message}`, 'error');
     } finally {
       btn.disabled = false;
       btn.textContent = this._editProduct ? 'Actualizar Producto' : 'Guardar Producto';
     }
   }
 
-  _showFeedback(msg, type) {
-    const el = this.container.querySelector('#form-feedback');
-    if (!el) return;
-    el.textContent = msg;
-    el.className = `feedback ${type}`;
-    setTimeout(() => { el.className = 'feedback hidden'; }, 5000);
+  _showFeedback(_message, _type = 'success') {
+    // Deprecated local inline feedback.
+    // Messages are NOT removed.
+    // All user-facing feedback must be routed through NIS global feedback:
+    // window.__mg_feedback.warn / success / error.
   }
 
   unmount() {}

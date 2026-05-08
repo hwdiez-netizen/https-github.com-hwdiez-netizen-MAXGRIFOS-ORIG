@@ -1,6 +1,7 @@
 import { handleCreateCliente, handleUpdateCliente } from './handlers/index.js';
 import { HorarioBuilder } from '../../components/horario-builder.js';
 import { BirthdayPicker } from '../../components/birthday-picker.js';
+import { confirmDialog } from '../../utils/confirm-dialog.js';
 
 const ADDR_TYPES = ['CALLE', 'CARRERA', 'AVENIDA', 'DIAGONAL', 'TRANSVERSAL', 'CIRCULAR', 'AUTOPISTA'];
 const CREDITO_FORMAS = new Set(['CREDITO_15', 'CREDITO_30', 'CREDITO_45']);
@@ -127,12 +128,12 @@ export class ClienteForm {
     this._editCliente = cliente;
   }
 
-  canUnmount() {
+  async canUnmount() {
     if (this._saved) return true;
     const razon = this.container.querySelector('#razon-social')?.value?.trim();
     const cedula = this.container.querySelector('#cedula')?.value?.trim();
     if (razon || cedula || this._editCliente) {
-      return confirm('Salir sin guardar?\nSe perderan los datos ingresados.');
+      return await confirmDialog('¿Salir sin guardar?\nSe perderán los datos ingresados.');
     }
     return true;
   }
@@ -284,8 +285,6 @@ export class ClienteForm {
 
           <div id="horario-builder-wrap"></div>
 
-          <div id="form-feedback" class="feedback hidden" style="margin-top:8px"></div>
-
           <button type="submit" class="btn-primary" id="btn-submit">
             ${isEdit ? 'Actualizar Cliente' : 'Guardar Cliente'}
           </button>
@@ -355,17 +354,16 @@ export class ClienteForm {
       ?.addEventListener('click', () => window.__erp_navigate?.('clientes'));
 
     this.container.querySelector('#btn-cancel')
-      ?.addEventListener('click', () => {
+      ?.addEventListener('click', async () => {
         if (this._saved) { window.__erp_navigate?.('clientes'); return; }
         if (this._editCliente) {
-          if (!confirm('Cancelar la edicion?\nEl cliente NO sera eliminado. Solo se descartan los cambios.')) return;
-          window.alert('Edicion cancelada. No se guardaron cambios.');
+          if (!await confirmDialog('¿Cancelar la edición?\nEl cliente NO será eliminado. Solo se descartan los cambios.')) return;
           window.__erp_navigate?.('clientes');
           return;
         }
         const razon = this.container.querySelector('#razon-social')?.value?.trim();
         const cedula = this.container.querySelector('#cedula')?.value?.trim();
-        if ((razon || cedula) && !confirm('Cancelar el registro?\nSe perderan los datos ingresados.')) return;
+        if ((razon || cedula) && !await confirmDialog('¿Cancelar el registro?\nSe perderán los datos ingresados.')) return;
         window.__erp_navigate?.('clientes');
       });
 
@@ -451,33 +449,27 @@ export class ClienteForm {
 
     if (!razon_social) {
       window.__mg_feedback?.warn('La Razón Social es obligatoria.');
-      this._showFeedback('La Razon Social es obligatoria.', 'error');
       return;
     }
     if (!nit && !cedula) {
       window.__mg_feedback?.warn('Debe ingresar al menos NIT o Cédula.');
-      this._showFeedback('Debe ingresar al menos NIT o Cedula.', 'error');
       return;
     }
     if (!forma_pago) {
       window.__mg_feedback?.warn('Debe definir la Forma de Pago del cliente.');
-      this._showFeedback('Debe definir la Forma de Pago del cliente.', 'error');
       return;
     }
     if (direccion === null) {
       window.__mg_feedback?.warn('Dirección incompleta.');
-      this._showFeedback('Completa la direccion con formato: TIPO + No + # + No-No.', 'error');
       return;
     }
     const isContadoFormaPago = forma_pago === 'CONTADO_B2B' || forma_pago === 'CONTADO';
     if (!isEdit && !isContadoFormaPago && cupo_credito <= 0) {
       window.__mg_feedback?.warn('Cupo Crédito debe ser mayor a cero.');
-      this._showFeedback('El campo Cupo Credito debe ser mayor a cero.', 'error');
       return;
     }
     if (!isEdit && compra_minima <= 0) {
       window.__mg_feedback?.warn('Compra Mínima debe ser mayor a cero.');
-      this._showFeedback('El campo Compra Minima debe ser mayor a cero.', 'error');
       return;
     }
 
@@ -505,23 +497,22 @@ export class ClienteForm {
       };
 
       if (isEdit) {
+        if (!this._editCliente?.id) {
+          window.__mg_feedback?.error('ID de cliente requerido para editar.');
+          return;
+        }
         await handleUpdateCliente(this._editCliente.id, data);
         this._saved = true;
         window.__mg_feedback?.success('Cliente actualizado correctamente.');
-        this._showFeedback('Cliente actualizado correctamente.', 'success');
-        window.alert('Cliente actualizado correctamente.');
         setTimeout(() => window.__erp_navigate?.('clientes'), 300);
       } else {
         await handleCreateCliente(data);
         this._saved = true;
         window.__mg_feedback?.success('Cliente creado correctamente.');
-        this._showFeedback('Cliente registrado correctamente.', 'success');
-        window.alert('Cliente registrado correctamente.');
         setTimeout(() => window.__erp_navigate?.('clientes'), 300);
       }
     } catch (err) {
       window.__mg_feedback?.error(err.message || 'Error crítico al procesar cliente.');
-      this._showFeedback(`Error: ${err.message}`, 'error');
     } finally {
       btn.disabled = false;
       btn.textContent = isEdit ? 'Actualizar Cliente' : 'Guardar Cliente';
@@ -556,11 +547,10 @@ export class ClienteForm {
     }
   }
 
-  _showFeedback(msg, type) {
-    const el = this.container.querySelector('#form-feedback');
-    if (!el) return;
-    el.textContent = msg;
-    el.className = `feedback ${type}`;
-    setTimeout(() => { el.className = 'feedback hidden'; }, 5000);
+  _showFeedback(_message, _type = 'success') {
+    // Deprecated local inline feedback.
+    // Messages are NOT removed.
+    // All user-facing feedback must be routed through NIS global feedback:
+    // window.__mg_feedback.warn / success / error.
   }
 }

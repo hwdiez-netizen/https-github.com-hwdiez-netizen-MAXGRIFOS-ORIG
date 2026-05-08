@@ -1,18 +1,15 @@
 
 .mg-feedback-root {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  inset: 0;
   pointer-events: none;
   z-index: 9999;
-  overflow: hidden;
 }
 
 .mg-feedback-toast {
-  position: absolute;
-  pointer-events: auto;
+  position: fixed;
+  max-width: min(88vw, 360px);
+  pointer-events: none;
   display: flex;
   align-items: center;
   padding: 12px 20px;
@@ -29,16 +26,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  pointer-events: auto;
 }
 
 /* WARNING: Top center, AMBER */
 .mg-feedback-warning {
-  top: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
   left: 50%;
   transform: translateX(-50%);
-  background: #fffbeb;
-  color: #92400e;
-  border: 1px solid #fcd34d;
+  background: #f59e0b;
+  color: #ffffff;
+  border: none;
 }
 
 /* SUCCESS: Center screen, GREEN */
@@ -46,19 +44,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #f0fdf4;
-  color: #166534;
-  border: 1px solid #86efac;
+  background: #10b981;
+  color: #ffffff;
+  border: none;
 }
 
 /* ERROR: Right middle, RED */
 .mg-feedback-error {
   top: 50%;
-  right: 16px;
+  right: 12px;
   transform: translateY(-50%);
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
 }
 
 .mg-toast-exit {
